@@ -1,5 +1,7 @@
 package com.fez.fezmod.blocks.furnaceblock;
 
+import java.util.Random;
+
 import com.fez.fezmod.FezMod;
 
 import net.minecraft.block.Block;
@@ -13,6 +15,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
@@ -20,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -69,10 +73,12 @@ public class StateFurnaceBlock extends Block implements ITileEntityProvider{
         return state.getValue(FACING).getIndex() + (state.getValue(ENABLED) ? 8 : 0);
     }
 
+
     @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, ENABLED);
     }
+    
     
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -98,6 +104,7 @@ public class StateFurnaceBlock extends Block implements ITileEntityProvider{
 		super.breakBlock(worldIn, pos, state);
 	}
 	
+	/*
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
@@ -107,10 +114,10 @@ public class StateFurnaceBlock extends Block implements ITileEntityProvider{
 			boolean boolBurning = false;
 			int burningSlots = tileEntityFurnaceBlock.numberOfBurningFuelSlots();
 			if (burningSlots > 0) boolBurning = true;
-			return getDefaultState().withProperty(ENABLED, boolBurning);
+			return getDefaultState().withProperty(ENABLED, boolBurning);//.withProperty(FACING, EnumFacing.NORTH);
 		}
 		return state;
-	}
+	}*/
 	
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
@@ -125,5 +132,28 @@ public class StateFurnaceBlock extends Block implements ITileEntityProvider{
 			lightValue = 0;
 		}
 		return lightValue;
+	}
+
+	public static void setState(boolean active, World worldObj, BlockPos pos) {
+        IBlockState iblockstate = worldObj.getBlockState(pos);
+        TileEntity tileentity = worldObj.getTileEntity(pos);
+
+        if (active)
+        {
+            worldObj.setBlockState(pos, Block.getBlockFromName("fezmod:statefurnaceblock").getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(ENABLED, true), 3);
+            worldObj.setBlockState(pos, Block.getBlockFromName("fezmod:statefurnaceblock").getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(ENABLED, true), 3);
+        }
+        else
+        {
+            worldObj.setBlockState(pos, Blocks.furnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldObj.setBlockState(pos, Blocks.furnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+        }
+
+        if (tileentity != null)
+        {
+            tileentity.validate();
+            worldObj.setTileEntity(pos, tileentity);
+        }
+		
 	}
 }

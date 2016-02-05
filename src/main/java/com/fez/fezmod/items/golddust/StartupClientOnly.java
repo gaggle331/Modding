@@ -20,10 +20,10 @@ public class StartupClientOnly
 		//   of any extra items you have created.  Hence you have to do it manually.  This will probably change in future.
 		// It must be done in the init phase, not preinit, and must be done on client only.
 
-		Item itemGoldDust = GameRegistry.findItem("fezmod", "golddust");
+		//Item itemGoldDust = GameRegistry.findItem("fezmod", "golddust");
 		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("fezmod:golddust", "inventory");
 		final int DEFAULT_ITEM_SUBTYPE = 0;
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemGoldDust, DEFAULT_ITEM_SUBTYPE, itemModelResourceLocation);
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(StartupCommon.goldDust, DEFAULT_ITEM_SUBTYPE, itemModelResourceLocation);
 	}
 
 	public static void postInitClientOnly()

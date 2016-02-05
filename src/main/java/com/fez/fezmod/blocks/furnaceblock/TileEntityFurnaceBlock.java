@@ -2,6 +2,7 @@ package com.fez.fezmod.blocks.furnaceblock;
 
 import java.util.Arrays;
 
+import net.minecraft.block.BlockFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -106,6 +107,7 @@ public class TileEntityFurnaceBlock extends TileEntity implements IInventory, IT
 				// If fuel is available, keep cooking the item, otherwise start "uncooking" it at double speed
 				if (numberOfFuelBurning > 0) {
 					cookTime += numberOfFuelBurning;
+		                StateFurnaceBlock.setState((boolean)true, this.worldObj, this.pos);
 				}	else {
 					cookTime -= 2;
 				}
