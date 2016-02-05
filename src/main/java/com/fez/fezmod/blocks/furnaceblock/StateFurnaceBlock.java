@@ -104,20 +104,6 @@ public class StateFurnaceBlock extends Block implements ITileEntityProvider{
 		super.breakBlock(worldIn, pos, state);
 	}
 	
-	/*
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-	{
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
-		if (tileEntity instanceof TileEntityFurnaceBlock) {
-			TileEntityFurnaceBlock tileEntityFurnaceBlock = (TileEntityFurnaceBlock)tileEntity;
-			boolean boolBurning = false;
-			int burningSlots = tileEntityFurnaceBlock.numberOfBurningFuelSlots();
-			if (burningSlots > 0) boolBurning = true;
-			return getDefaultState().withProperty(ENABLED, boolBurning);//.withProperty(FACING, EnumFacing.NORTH);
-		}
-		return state;
-	}*/
 	
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
