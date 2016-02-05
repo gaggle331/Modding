@@ -131,8 +131,8 @@ public class StateFurnaceBlock extends Block implements ITileEntityProvider{
         }
         else
         {
-            worldObj.setBlockState(pos, Blocks.furnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldObj.setBlockState(pos, Blocks.furnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldObj.setBlockState(pos, Block.getBlockFromName("fezmod:statefurnaceblock").getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldObj.setBlockState(pos, Block.getBlockFromName("fezmod:statefurnaceblock").getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         }
 
         if (tileentity != null)
